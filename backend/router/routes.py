@@ -1,6 +1,6 @@
 from fastapi import APIRouter,HTTPException
 from pydantic import BaseModel
-from services.image_Generator import generateImage
+from services.image_Generator import generateImage,generateNoofPrompts
 router = APIRouter()
 import asyncio
 import concurrent.futures
@@ -11,10 +11,6 @@ def say_hello():
 
 def generate_story_prompts():
     story_prompts = [
-        "An ancient map is found on a dusty table, revealing the location of a lost city.",
-        "A team of explorers treks through a dense jungle, discovering an overgrown temple.",
-        "Inside the temple, a giant stone golem awakens, glowing with mystical energy.",
-        "A hidden chamber reveals a floating golden relic, pulsating with ancient power.",
     ]
     return story_prompts
 
@@ -32,6 +28,8 @@ class TextInput(BaseModel):
     
 @router.post("/generateImage")
 async def generate_image(input: TextInput):
+    new_prompts = generateNoofPrompts(input.text, input.images)
     story_prompts = generate_story_prompts()
+    story_prompts.extend(new_prompts)
     responses = await generate_multiple_images(story_prompts)
     return {"total_images": len(responses), "images": responses}
