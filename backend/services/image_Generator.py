@@ -42,7 +42,7 @@ def generateNoofPrompts(prompt:str, no_of_prompts:int):
             },
             {
                 "role": "user",
-                "content": f"Generate exactly {no_of_prompts} short, engaging story prompts related to '{prompt}'. Each prompt must be concise, describe a single scene for an AI-generated image, and be formatted as a numbered list item (e.g., '1. Prompt text'). Do not include any introductory or concluding text—just the numbered prompts."
+                "content": f"Break down this story into exactly {no_of_prompts} sequential scene descriptions that would work as prompts for AI-generated images. Each scene should represent a key moment in the narrative progression. Format your response as a numbered list without any introduction or conclusion. The scenes should flow logically from beginning to middle to end, telling a cohesive visual story.\n\nHere's the story to visualize: '{prompt}'"
             }
         ]
     )
